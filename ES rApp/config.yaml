@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: energy-saving
+  namespace: test-rapp
+spec:
+  containers:
+  - name: my-container
+    image: blue89427999/es-rapp:1.0
+    ports:
+    - containerPort: 80
