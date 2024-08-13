@@ -1,0 +1,1050 @@
+dmaap-influxdb-adapter:
+  image:
+    pullPolicy: Always
+  logLevel: DEBUG
+  rules:
+    - topic: unauthenticated.SEC_3GPP_PERFORMANCEASSURANCE_OUTPUT
+      rules:
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[1].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[1].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[1].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[3].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[3].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[3].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[4].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[4].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[4].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[5].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[5].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[5].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[6].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[6].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[6].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[7].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[7].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[7].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[8].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[8].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[8].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[9].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[9].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[9].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[10].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[10].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[10].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[11].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[11].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[11].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[12].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[12].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[12].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[13].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[13].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[13].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[14].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[14].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[14].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[15].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[15].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[15].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[16].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[16].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[16].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[17].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[17].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[17].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[18].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[18].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[18].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[19].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[19].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[19].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[20].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[20].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[20].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[21].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[21].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[21].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[22].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[22].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[22].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[23].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[23].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[23].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[24].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[24].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[24].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[25].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[25].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[25].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[26].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[26].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[26].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[27].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[27].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[27].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[28].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[28].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[28].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[29].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[29].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[29].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[30].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[30].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[30].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[31].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[31].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[31].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[32].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[32].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[32].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[33].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[33].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[33].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[34].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[34].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[34].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[35].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[35].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[35].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[36].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[36].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[36].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[37].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[37].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[37].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[38].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[38].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[38].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[39].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[39].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[39].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[40].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[40].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[40].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[41].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[41].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[41].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[42].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[42].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[42].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[43].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[43].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[43].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[44].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[44].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[44].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[45].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[45].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[45].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[46].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[46].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[46].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[47].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[47].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[47].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[48].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[48].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[48].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[49].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[49].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[49].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[50].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[50].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[50].measValuesList[0].measResults[1].sValue
+              type: float
+        - bucket: RIC-TEST-bucket
+          measurement: o-ran-pm
+          matches:
+            - key: event.commonEventHeader.domain
+              value: perf3gpp
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[51].measValuesList[0].measObjInstId
+              type: string
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[51].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[51].measValuesList[0].measResults[1].sValue
+              type: float
+
+buckets:
+  - name: RIC-TEST-bucket

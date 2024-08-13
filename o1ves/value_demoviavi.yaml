@@ -1,0 +1,160 @@
+dmaap-influxdb-adapter:
+  image:
+    pullPolicy: Always
+  logLevel: DEBUG
+  rules:
+    - topic: unauthenticated.SEC_3GPP_PERFORMANCEASSURANCE_OUTPUT
+      rules:
+        - bucket: RIC-TEST-bucket-demo
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: CellReports
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measObjInstId
+              type: string
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[0].sValue
+              type: float
+            - key:  DRB.UEThpUl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[1].sValue
+              type: float
+            - key:  RRU.PrbUsedDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[2].sValue
+              type: float
+            - key:  RRU.PrbUsedUl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[3].sValue
+              type: float
+            - key:  RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[4].sValue
+              type: float
+            - key:  PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[5].sValue
+              type: float
+            - key:  Viavi.PEE.EnergyEfficiency
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[6].sValue
+              type: float
+        - bucket: RIC-TEST-bucket-demo
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: CellReports
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[1].measValuesList[0].measObjInstId
+              type: string
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[1].measValuesList[0].measResults[0].sValue
+              type: float
+            - key:  DRB.UEThpUl
+              field: event.perf3gppFields.measDataCollection.measInfoList[1].measValuesList[0].measResults[1].sValue
+              type: float
+            - key:  RRU.PrbUsedDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[1].measValuesList[0].measResults[2].sValue
+              type: float
+            - key:  RRU.PrbUsedUl
+              field: event.perf3gppFields.measDataCollection.measInfoList[1].measValuesList[0].measResults[3].sValue
+              type: float
+            - key:  RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[1].measValuesList[0].measResults[4].sValue
+              type: float
+            - key:  PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[1].measValuesList[0].measResults[5].sValue
+              type: float
+            - key:  Viavi.PEE.EnergyEfficiency
+              field: event.perf3gppFields.measDataCollection.measInfoList[1].measValuesList[0].measResults[6].sValue
+              type: float
+        - bucket: RIC-TEST-bucket-demo
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: CellReports
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: CellID
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measObjInstId
+              type: string
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[0].sValue
+              type: float
+            - key:  DRB.UEThpUl
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[1].sValue
+              type: float
+            - key:  RRU.PrbUsedDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[2].sValue
+              type: float
+            - key:  RRU.PrbUsedUl
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[3].sValue
+              type: float
+            - key:  RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[4].sValue
+              type: float
+            - key:  PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[5].sValue
+              type: float
+            - key:  Viavi.PEE.EnergyEfficiency
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[6].sValue
+              type: float
+        - bucket: RIC-TEST-bucket-demo
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: CellReports
+          fields:
+            - key: Macro_cell_DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[0].sValue
+              type: float
+            - key: Micro_cell_DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[0].sValue
+              type: float
+            - key:  Macro_cell_DRB.UEThpUl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[1].sValue
+              type: float
+            - key:  Micro_cell_DRB.UEThpUl
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[1].sValue
+              type: float
+            - key:  Macro_cell_RRU.PrbTotUl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[2].sValue
+              type: float
+            - key:  Micro_cell_RRU.PrbTotUl
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[2].sValue
+              type: float
+            - key:  Macro_cell_throughput
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[3].sValue
+              type: float
+            - key:  Micro_cell_throughput
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[3].sValue
+              type: float
+            - key:  Macro_cell_RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[4].sValue
+              type: float
+            - key:  Micro_cell_RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[4].sValue
+              type: float
+            - key:  Macro_cell_PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[5].sValue
+              type: float
+            - key:  Micro_cell_PEE.AvgPower
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[5].sValue
+              type: float
+            - key:  Macro_cell_Viavi.PEE.EnergyEfficiency
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[6].sValue
+              type: float
+            - key:  Micro_cell_Viavi.PEE.EnergyEfficiency
+              field: event.perf3gppFields.measDataCollection.measInfoList[2].measValuesList[0].measResults[6].sValue
+              type: float

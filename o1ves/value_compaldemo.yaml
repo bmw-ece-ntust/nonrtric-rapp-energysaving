@@ -1,0 +1,772 @@
+dmaap-influxdb-adapter:
+  image:
+    pullPolicy: Always
+  logLevel: DEBUG
+  rules:
+    - topic: unauthenticated.VES_MEASUREMENT_OUTPUT
+      rules:
+        - bucket: my-bucket
+          measurement: slice-measurement
+          matches: 
+            - key: event.commonEventHeader.domain
+              value: stndDefined
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: slice-1-avg-throughput-downlink
+              field: event.stndDefinedFields.data.measurements[0].value
+              type: int
+            - key: slice-1-avg-PRB-used-downlink
+              field: event.stndDefinedFields.data.measurements[1].value
+              type: int
+            - key: slice-2-avg-throughput-downlink
+              field: event.stndDefinedFields.data.measurements[2].value
+              type: int
+            - key: slice-2-avg-PRB-used-downlink
+              field: event.stndDefinedFields.data.measurements[3].value
+              type: int
+            - key: slice-3-avg-throughput-downlink
+              field: event.stndDefinedFields.data.measurements[4].value
+              type: int
+            - key: slice-3-avg-PRB-used-downlink
+              field: event.stndDefinedFields.data.measurements[5].value
+              type: int
+    - topic: unauthenticated.SEC_3GPP_PERFORMANCEASSURANCE_OUTPUT
+      rules:
+        - bucket: CUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: CUPMReports
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: RRC.ConnMean
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[0].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[10].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[10].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[11].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[11].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[12].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[12].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[13].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[13].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[14].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[14].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[15].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[15].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[16].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[16].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[17].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[17].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[18].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[18].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[19].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[19].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[20].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[20].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[21].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[21].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[22].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[22].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[23].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[23].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[24].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[24].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[25].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[25].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[26].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[26].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[27].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[27].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[28].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[28].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[29].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[29].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[30].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[30].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[31].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[31].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[32].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[32].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[33].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[33].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[34].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[34].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[35].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[35].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[36].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[36].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[37].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[37].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[38].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[38].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[39].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[39].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[40].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[40].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[41].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[41].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[42].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[42].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[43].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[43].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[44].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[44].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[45].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[45].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[46].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[46].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[47].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[47].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[48].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[48].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[49].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[49].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[50].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[50].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[51].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[51].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[52].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[52].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[53].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[53].sValue
+              type: float
+        - bucket: DUPMReports
+          measurement: o-ran-pm
+          matches:
+            - key: event.perf3gppFields.measDataCollection.measuredEntityUserName
+              value: DUPMReports
+            - key: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[54].p
+              value: 3230003
+          tags:
+            - key: vendor
+              value: ntust-taiwan-lab
+            - key: sourceName
+              field: event.commonEventHeader.sourceName
+          fields:
+            - key: DRB.UEThpDl
+              field: event.perf3gppFields.measDataCollection.measInfoList[0].measValuesList[0].measResults[54].sValue
+              type: float
