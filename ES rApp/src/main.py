@@ -6,6 +6,7 @@ from mdclogpy import Logger
 from data import DATABASE
 from assist import ASSIST
 from nectconfclient import NETCONFCLIENT
+from policy_manager import PolicyManager  
 import json
 
 
@@ -22,6 +23,12 @@ class ESrapp():
         self.threshold = 50
         self.netconf=NETCONFCLIENT()
         self.index = 1
+
+        # Create Policy Manager instance
+        self.policy_manager = PolicyManager(base_url="http://192.168.8.111:32080/a1mediator/A1-P/v2", policy_type_id=20008)
+        
+        # Create policy type and policy instance
+        self.policy_manager.create_policy_type()
 
     def entry(self):
         schedule.every(1).minute.do(self.inference)
@@ -41,6 +48,10 @@ class ESrapp():
             if self.check_and_perform_action(response_text):
                 cell_id_number = group_data['cellidnumber'].iloc[0] 
                 logger.inf(f"Turn off the {group_name}")
+                # Create policy instance with the cell_id_number before performing action
+                self.policy_manager.create_policy_instance(cell_id_number)
+                # Wait for 3 seconds before performing the action
+                time.sleep(3)
                 self.netconf.perform_action(cell_id_number)
 
     # Generate the input data for ML rApp
