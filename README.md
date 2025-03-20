@@ -20,3 +20,4 @@
 ## ML rApp
 -  [ML rApp](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/tree/master/ML%20rApp)
 -  [rApp Manager user guide](https://hackmd.io/@Winnie27/rJjXkxatp) 
+![image](https://github.com/user-attachments/assets/865db5d3-8217-42a7-af6f-0d34578d9ccc)
