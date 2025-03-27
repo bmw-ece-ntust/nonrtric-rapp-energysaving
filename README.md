@@ -63,7 +63,7 @@
 **Desrciption:** These parameters are used to run the ES algorithm and output the target cell ID for shutting down the selected cell.
 - Input
   
-| KPI/Measurement Name | Target Entity | Description |Defined by (3GPP TS 28.552 v17.6.0 / VIAVI)|
+| KPI/Measurement Name | Target Entity | Description |Defined by ([3GPP TS 28.552 v17.6.0](https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3413) / [VIAVI](https://drive.google.com/file/d/1-1XJGd6pl0W2EnxBbraI_mbzAObB0C1n/view?usp=sharing))|
 |----------|----------|---------------|---------------|
 | DRB_UEThpDl| Cell, UE, QoS     | Average downlink throughput (in Gbp)  |3GPP TS 28.552 v17.6.0 5.1.1.3.1|
 | Viavi_Cell_id |UE   | 	Cell's or UE serving cell's "localCellId"  |VIAVI proprietary|
