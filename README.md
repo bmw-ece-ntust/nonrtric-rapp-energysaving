@@ -1,3 +1,36 @@
+# energy-saving-simple-usecase
+
+## Outline
+- [Energy Saving (ES) rApp Documentation](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md)
+  - Energy Saving (ES) rApp
+- [RIC Test](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#ric-test)
+  - RIC Test & [I]SMO Integration (O1-Ves)
+  - RIC Test Netconf Test
+  - Cell on/off Scenario
+- [Compal gNB](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#compal-gnb)
+  - Compal gNB - O1 VES Test
+  - Compal gNB - O1 Netconf Test
+- [Installation Guide](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#installation-guide)
+  - [I release] SMO Deployment
+  - [I release] Install Non-RT RIC
+  - rApp Manager Introduction
+- [ML rApp](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#ml-rapp)
+  - ML rApp Overview
+  - rApp Manager User Guide
+- [Architecture](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#architecture)
+- [I/O Parameters Table](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#io-parameters-table)
+  - ES rApp I/O Parameters
+    -   Input Parameters
+    -   Output Parameters
+  - ML rApp I/O Parameters
+    -   Input Parameters
+    -   Output Parameters
+  - Summary
+
+
+
+
+
 ## Energy Saving (ES) rApp
 -  [ES rApp](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/tree/master/ES%20rApp)
 
@@ -25,6 +58,42 @@
 ![image](https://github.com/user-attachments/assets/865db5d3-8217-42a7-af6f-0d34578d9ccc)
 
 ## [I/O Parameters Table](https://hackmd.io/EOb2BReXTpeOQ6wXwflPFA?view#IO-Parameters-Table)
-![image](https://github.com/user-attachments/assets/e25b5ba9-2461-47a8-a673-55bf38e9d65e)
 
-![image](https://github.com/user-attachments/assets/080deb6c-ff9a-443b-986b-1d0be5a7133e)
+### ES rApp I/O Parameters
+**Desrciption:** These parameters are used to run the ES algorithm and output the target cell ID for shutting down the selected cell.
+- Input
+  
+| KPI/Measurement Name | Target Entity | Description |Defined by (3GPP TS 28.552 v17.6.0 / VIAVI)|
+|----------|----------|---------------|---------------|
+| DRB_UEThpDl| Cell, UE, QoS     | Average downlink throughput (in Gbp)  |3GPP TS 28.552 v17.6.0 5.1.1.3.1|
+| Viavi_Cell_id |UE   | 	Cell's or UE serving cell's "localCellId"  |VIAVI proprietary|
+| PEE.AvgPower | Cell    | Average power consumed over the measurement period (in watts, W)  |3GPP TS 28.552 v17.6.0 5.1.1.19.2.1|
+| RRU_PrbTotDl | Cell, mMIMO   | 	Total usage (in percentage) of Physical Resource Blocks (PRBs) on the downlink for any purpose |3GPP TS 28.552 v17.6.0 5.1.1.2.1|
+
+- Output
+
+| KPI/Measurement Name | Target Entity | Description |Defined by (3GPP TS 28.552 v17.6.0 / VIAVI)|
+|----------|----------|---------------|---------------|
+| Viavi_Cell_id | UE   | Cell's or UE serving cell's "localCellId" |VIAVI proprietary|
+
+### ML rApp I/O Parameters
+**Desrciption:** The ML rApp utilizes input parameters to predict future cell throughput. Its outputs include both the target cell ID and the predicted throughput value, enabling informed decisions for network optimization.
+- Input
+  
+| KPI/Measurement Name | Target Entity | Description |Defined by (3GPP TS 28.552 v17.6.0 / VIAVI)|
+|----------|----------|---------------|---------------|
+| DRB_UEThpDl| Cell, UE, QoS     | Average downlink throughput (in Gbp)  |3GPP TS 28.552 v17.6.0 5.1.1.3.1|
+| Viavi_Cell_id |UE   | 	Cell's or UE serving cell's "localCellId"  |VIAVI proprietary|
+| PEE.AvgPower | Cell    | Average power consumed over the measurement period (in watts, W)  |3GPP TS 28.552 v17.6.0 5.1.1.19.2.1|
+| RRU_PrbTotDl | Cell, mMIMO   | 	Total usage (in percentage) of Physical Resource Blocks (PRBs) on the downlink for any purpose |3GPP TS 28.552 v17.6.0 5.1.1.2.1|
+
+- Output
+
+| KPI/Measurement Name | Target Entity | Description |Defined by (3GPP TS 28.552 v17.6.0 / VIAVI)|
+|----------|----------|---------------|---------------|
+| Viavi_Cell_id | UE   | Cell's or UE serving cell's "localCellId" |VIAVI proprietary|
+| DRB_UEThpDl| Cell, UE, QoS     | Average downlink throughput (in Gbp)  |3GPP TS 28.552 v17.6.0 5.1.1.3.1|
+
+### Summary
+
+The ES rApp runs an energy-saving algorithm based on input parameters and outputs a cell ID to turn off cells with low load, achieving energy savings. In contrast, the ML rApp uses input parameters to predict the future cell throughput, with the output including the cell ID and the predicted throughput value.
