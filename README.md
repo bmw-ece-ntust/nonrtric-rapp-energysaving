@@ -1,4 +1,4 @@
-# energy-saving-simple-usecase
+# OSC Non-RT RIC Energy Saving rAPP
 
 ## Outline
 
