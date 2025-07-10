@@ -102,3 +102,17 @@
 ### Summary
 
 The ES rApp runs an energy-saving algorithm based on input parameters and outputs a cell ID to turn off cells with low load, achieving energy savings. In contrast, the ML rApp uses input parameters to predict the future cell throughput, with the output including the cell ID and the predicted throughput value.
+
+### Citation
+If you use this project in your research or wish to cite it, please use below citation:
+
+```
+@software{Lan_nonrtric-rapp-energysaving_2025,
+author = {Lan, Yong-Yi and Zhang, Han-Hong and Bimo, Fransiscus Asisi},
+month = jul,
+title = {{nonrtric-rapp-energysaving}},
+url = {https://github.com/bmw-ece-ntust/nonrtric-rapp-energysaving},
+version = {1.0.0},
+year = {2025}
+}
+```
