@@ -25,7 +25,117 @@ Step:
 ## Deploy OSC xAPPS on Near-RT RIC
 
 ### Deploy ES rAPP
-1. 
+
+1. Clone the reposiotry:
+
+    > [!NOTE]
+    > Execute from the root folder `<YOUR_PATH>/ES_Use_Case/`
+
+    ```bash
+    git clone https://github.com/bmw-ece-ntust/nonrtric-rapp-energysaving.git
+    ```
+
+2. Build the image
+
+    ```bash
+    sudo nerdctl build -t ianjoseph/es-rapp:noML
+
+    # OUTPUT:
+    # ...
+    # => exporting to docker image format                                                35.1s
+    # => => exporting layers                                                             12.7s
+    # => => exporting manifest sha256:ed412f6d55fa356f9fc034ba1bc4a5cd05a45fa41bb00a4762  0.0s
+    # => => exporting config sha256:148e0331f9c7757be95f9ea5985ad145fe7e7cb766f272805960  0.1s
+    # => => sending tarball                                                              22.2s
+    # Loaded image: docker.io/ianjoseph/es-rapp:noML
+    ```
+
+3. Verify the image is built:
+
+    ```bash
+    sudo nerdctl images | grep es-rapp
+
+    # OUTPUT:
+    # REPOSITORY                                              TAG      IMAGE ID        CREATED               PLATFORM       SIZE        BLOB SIZE
+    # ianjoseph/es-rapp                                       noMl     ed412f6d55fa    4 minutes ago         linux/amd64    1.2 GiB     454.6 MiB
+    
+    ```
+
+4. Create K8s namespace:
+
+    ```bash
+    sudo kubectl create ns es-rapp
+
+    # Output:
+    # namespace/es-rapp created
+    ```
+
+5. Deploy the ES rAPP:
+
+    > [!NOTE]
+    > Execute from the root folder of the cloned repository.
+
+    ```bash
+    sudo helm package ./ES\rApp/
+
+    # OUTPUT:
+    # Successfully packaged chart and saved it to: /home/kric/ian/ES_Use_Case/nonrtric-rapp-energysaving/energy-saving-rapp-0.1.0.tgz
+
+    sudo helm install es-rapp-noml ./energy-saving-rapp-0.1.0.tgz --namespace=es-rapp
+
+    # OUTPUT:
+    # Successfully packaged chart and saved it to: /home/kric/ian/ES_Use_Case/nonrtric-rapp-energysaving/energy-saving-rapp-0.1.0.tgz
+
+    sudo helm install es-rapp-noml ./energy-saving-rapp-0.1.0.tgz --namespace=es-rapp
+
+    # OUTPUT:
+    # Release "es-rapp-noml" has been installed.
+    # NAMESPACE: es-rapp
+    # NAME: es-rapp-noml
+    # LAST DEPLOYED: Fri Aug  1 23:44:42 2025
+    # NAMESPACE: es-rapp
+    # STATUS: deployed
+    # REVISION: 1
+    # NOTES:
+    # 1. Get the application URL by running these commands:
+    #     export POD_NAME=$(kubectl get pods --namespace es-rapp -l "app.kubernetes.io/name=energysaving,app.kubernetes.io/instance=es-rapp-noml" -o jsonpath="{.items[0].metadata.name}")
+    #     export CONTAINER_PORT=$(kubectl get pod --namespace es-rapp $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+    #     echo "Visit http://127.0.0.1:8080 to use your application"
+    #     kubectl --namespace es-rapp port-forward $POD_NAME 8080:$CONTAINER_PORT
+    ```
+
+6. Verify the ES rAPP pods status:
+
+    ```bash
+    sudo kubectl get pods -n es-rapp
+
+    # OUTPUT:
+    # NAME                            READY   STATUS              RESTARTS   AGE
+    # energysaving-865bcff57b-dcczm   0/1     ContainerCreating   0          20s
+    ```
+
+> [!CAUTION]
+> Error found where executing this command:
+>
+> ```bash
+> sudo kubectl logs -f -n <namespace> <pod Name> $(sudo kubectl get pods -A | grep es-rapp-noml | awk '{print $1 " " $2}')
+> 
+> # ERROR:
+> # Traceback (most recent call last):
+> #   File "main2.py", line 8, in <module>
+> #     from nectconfclient import NETCONFCLIENT
+> #   File "/app/nectconfclient.py", line 42, in <module>
+> #     netconf_client.perform_action(6)
+> #   File "/app/nectconfclient.py", line 34, in perform_action
+> #     with manager.connect(host="192.168.8.28", port=30619, username="root", password="viavi", hostkey_verify=False) as m:
+> #   File "/usr/local/lib/python3.8/site-packages/ncclient/manager.py", line 187, in connect
+> #     return connect_ssh(*args, **kwds)
+> #   File "/usr/local/lib/python3.8/site-packages/ncclient/manager.py", line 139, in connect_ssh
+> #     session.connect(*args, **kwds)
+> #   File "/usr/local/lib/python3.8/site-packages/ncclient/transport/ssh.py", line 288, in connect
+> #     raise SSHError("Could not open socket to %s:%s" % (host, port))
+> # ncclient.transport.errors.SSHError: Could not open socket to 192.168.8.28:30619
+> ```
 
 ### Deploy KPIMON-GO xAPP
 
@@ -36,18 +146,6 @@ Step:
 
     ```bash
     git clone https://github.com/bmw-ece-ntust/kpimon-go-xapp.git
-    ```
-
-    **Output**
-
-    ```
-    Cloning into 'kpimon-go-xapp'...
-    remote: Enumerating objects: 2904, done.
-    remote: Counting objects: 100% (2904/2904), done.
-    remote: Compressing objects: 100% (614/614), done.
-    remote: Total 2904 (delta 2305), reused 2833 (delta 2289), pack-reused 0 (from 0)
-    Receiving objects: 100% (2904/2904), 6.11 MiB | 13.32 MiB/s, done.
-    Resolving deltas: 100% (2305/2305), done.
     ```
 
 2. Build the container of KPIMON-GO xAPP:
