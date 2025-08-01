@@ -8,6 +8,9 @@ authors:
   - family-names: "Bimo"
     given-names: "Fransiscus Asisi"
     orcid: "https://orcid.org/0000-0001-9974-3442"
+  - family-names: "Chandra"
+    given-names: "Ian Joseph"
+    orcid: "https://orcid.org/0000-0002-3159-7693"
 title: "nonrtric-rapp-energysaving"
 version: "1.0.0"
 date-released: 2025-07-10 # Current date
@@ -16,3 +19,4 @@ keywords:
   - "collaboration"
   - "open source"
   - "software"
+  - "energy saving"
