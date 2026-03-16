@@ -1,68 +1,143 @@
-import requests
 import logging
+import os
 from ncclient import manager
 import xml.etree.ElementTree as ET
+import yaml
+from configparser import ConfigParser
+
 
 logger = logging.getLogger(__name__)
 
 class NETCONFCLIENT():
+    def __init__(self):
+        """
+        Initialize the O1Netconf connection details.
 
-    def convert_to_xml(self, index):
-        root = ET.Element("config", xmlns="urn:ietf:params:xml:ns:netconf:base:1.0")
-        managed_element = ET.SubElement(root, "ManagedElement", xmlns="urn:3gpp:sa5:_3gpp-common-managed-element")
-        id_element = ET.SubElement(managed_element, "id")
-        id_element.text = "1193046"
-        gnb_ucp_function = ET.SubElement(managed_element, "GNBCUCPFunction", xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-gnbcucpfunction")
-        id_element = ET.SubElement(gnb_ucp_function, "id")
-        id_element.text = "1"
-        nr_cell_cu = ET.SubElement(gnb_ucp_function, "NRCellCU", xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-nrcellcu")
-        id_element = ET.SubElement(nr_cell_cu, "id")
-        id_element.text = str(index)
-        ces_management_function = ET.SubElement(nr_cell_cu, "CESManagementFunction", xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-cesmanagementfunction")
-        id_element = ET.SubElement(ces_management_function, "id")
-        id_element.text = str(index)
-        attributes = ET.SubElement(ces_management_function, "attributes")
-        energy_saving_control = ET.SubElement(attributes, "energySavingControl")
-        energy_saving_control.text = "toBeEnergySaving"
-        energy_saving_state = ET.SubElement(attributes, "energySavingState")
-        energy_saving_state.text = "isNotEnergySaving"
-        return ET.tostring(root, encoding="unicode")
+        Args:
+            host (str): The device IP address or hostname.
+            port (int): The NETCONF port.
+            username (str): The username for authentication.
+            password (str): The password for authentication.
+            timeout (int): The connection timeout in seconds.
+            hostkey_verify (bool): Whether to verify the host key.
+        """
+        self.host = None
+        self.port = None
+        self.username = None
+        self.password = None
+        self.timeout = None
+        self.hostkey_verify = None
+        self.session = None
+        self.config()
+        self.connect()
 
-    def perform_action(self, index):
-        xml_data = self.convert_to_xml(index)
-        with manager.connect(host="192.168.8.28", port=31383, username="root", password="viavi", hostkey_verify=False) as m:
-            try:
-                edit_response = m.edit_config(target="running", config=xml_data)
-                logger.info(f"Successfully turn off the cell")
-            except Exception as e:
-                logger.error(f"Failed to turn off the cell: {str(e)}")
+    def connect(self):
+        """
+        Establish the NETCONF connection to the device.
+        Returns:
+            bool: True if connection is successful, False otherwise.
+        """
+        if self.session and self.session.connected:
+            logger.info("Already connected.")
+            return True
+        try:
+            logger.info(f"Connecting to {self.host}:{self.port}...")
+            self.session = manager.connect(
+                host=self.host,
+                port=self.port,
+                username=self.username,
+                password=self.password,
+                timeout=self.timeout,
+                hostkey_verify=self.hostkey_verify,
+                allow_agent=False,
+                look_for_keys=False
+            )
+            logger.info(f"Connection successful. Session ID: {self.session.session_id}")
+            return True
+        except Exception as e:
+            logger.error(f"Failed to connect to {self.host}:{self.port}. Error: {e}")
+            self.session = None
+            return False
 
-    def convert_to_xml_1(self, index):
-        root = ET.Element("config", xmlns="urn:ietf:params:xml:ns:netconf:base:1.0")
-        managed_element = ET.SubElement(root, "ManagedElement", xmlns="urn:3gpp:sa5:_3gpp-common-managed-element")
-        id_element = ET.SubElement(managed_element, "id")
-        id_element.text = "1193046"
-        gnb_ucp_function = ET.SubElement(managed_element, "GNBCUCPFunction", xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-gnbcucpfunction")
-        id_element = ET.SubElement(gnb_ucp_function, "id")
-        id_element.text = "1"
-        nr_cell_cu = ET.SubElement(gnb_ucp_function, "NRCellCU", xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-nrcellcu")
-        id_element = ET.SubElement(nr_cell_cu, "id")
-        id_element.text = str(index)
-        ces_management_function = ET.SubElement(nr_cell_cu, "CESManagementFunction", xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-cesmanagementfunction")
-        id_element = ET.SubElement(ces_management_function, "id")
-        id_element.text = str(index)
-        attributes = ET.SubElement(ces_management_function, "attributes")
-        energy_saving_control = ET.SubElement(attributes, "energySavingControl")
-        energy_saving_control.text = "toBeNotEnergySaving"
-        energy_saving_state = ET.SubElement(attributes, "energySavingState")
-        energy_saving_state.text = "isNotEnergySaving"
-        return ET.tostring(root, encoding="unicode")
+    def network_config_update_netconf(self, cell_list):
+        """
+        Update the network configuration based on the provided action data.
+        Args:
+            action_data (dict): The action data containing configuration updates.
+            netconf_handler: The NETCONF interface handler.
+        """
+        for cell in cell_list:
+            energy_saving_xml = ""
+            control_xml = f"""
+<config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <ManagedElement xmlns="urn:3gpp:sa5:_3gpp-common-managed-element">
+    <id>1193046</id>
+    <GNBCUCPFunction xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-gnbcucpfunction">
+        <id>1</id>
+{{}}    </GNBCUCPFunction>
+    </ManagedElement>
+</config>
+"""
+            energy_saving_xml = energy_saving_xml + f"""        <NRCellCU xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-nrcellcu">
+            <id>{cell}</id>
+            <CESManagementFunction xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-cesmanagementfunction">
+                <id>{cell}</id>
+                <attributes>
+                    <energySavingControl>toBeEnergySaving</energySavingControl>
+                </attributes>
+            </CESManagementFunction>
+        </NRCellCU>
+"""
+            logger.info(f"Network configuration updated for Cell {cell} off")
+            logger.debug(f"Generated NETCONF XML:\n{control_xml.format(energy_saving_xml)}")
+            self.edit_config(control_xml.format(energy_saving_xml))
 
-    def perform_action_1(self, index):
-        xml_data = self.convert_to_xml_1(index)
-        with manager.connect(host="192.168.8.28", port=31383, username="root", password="viavi", hostkey_verify=False) as m:
-            try:
-                edit_response = m.edit_config(target="running", config=xml_data)
-                logger.info(f"Successfully turn on the cell")
-            except Exception as e:
-                logger.error(f"Failed to turn on the cell: {str(e)}")
+    def edit_config(self, config_data, target="running", default_operation="merge"):
+        """
+        Edit the configuration on the device.
+
+        Args:
+            config_data (str): The configuration to apply, in XML format.
+            target (str): The target configuration datastore (e.g., "running").
+            default_operation (str): The default operation (e.g., "merge", "replace").
+
+        Returns:
+            The result of the edit operation, or None on failure.
+        """
+        if not self.session or not self.session.connected:
+            logger.error("Not connected. Please call connect() first.")
+            return None
+        try:
+            logger.info(f"Applying configuration to '{target}' datastore...")
+            return self.session.edit_config(target=target, config=config_data, default_operation=default_operation)
+        except Exception as e:
+            logger.error(f"Failed to edit configuration: {e}")
+            return None
+
+    def config(self):
+        """
+        Load NETCONF connection settings from config.yaml or config.ini.
+        """
+        if os.path.exists("config.yaml"):
+            with open("config.yaml", "r", encoding="utf-8") as file_handle:
+                data = yaml.safe_load(file_handle) or {}
+            netconf_cfg = data.get("netconf", {})
+            self.host = netconf_cfg.get("host", self.host)
+            self.port = netconf_cfg.get("port", self.port)
+            self.username = netconf_cfg.get("user", self.username)
+            self.password = netconf_cfg.get("password", self.password)
+            self.timeout = netconf_cfg.get("timeout", self.timeout)
+            self.hostkey_verify = netconf_cfg.get("hostkey_verify", self.hostkey_verify)
+            return
+        
+        logger.warning("config.yaml not found, falling back to config.ini")
+        cfg = ConfigParser()
+        cfg.read("config.ini")
+        for section in cfg.sections():
+            if section == "netconf":
+                self.host = cfg.get(section, "host")
+                self.port = cfg.get(section, "port")
+                self.username = cfg.get(section, "user")
+                self.password = cfg.get(section, "password")
+                self.timeout = cfg.get(section, "timeout")
+                self.hostkey_verify = cfg.get(section, "hostkey_verify")

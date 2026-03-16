@@ -1,107 +1,182 @@
 # OSC Non-RT RIC Energy Saving rAPP
 
 ## Outline
+- [1. Introduction of the Energy Saving (ES) rApp template](#1-introduction-of-the-energy-saving-es-rapp-template)
+- [2. Project Structure](#2-project-structure)
+- [3. Input and output](#3-input-and-output)
+  - [3.1 Input: PM metrics access from influxDB](#31-input-pm-metrics-access-from-influxdb)
+  - [3.2 Output: Netconf cell on/off control](#32-output-netconf-cell-onoff-control)
+- [4. Class Diagram](#4-class-diagram)
+- [5. Flowchart](#5-flowchart)
+- [6. Message Sequence Chart (MSC)](#6-message-sequence-chart-msc)
+- [7. Helm Deployment Guide](#7-helm-deployment-guide)
+- [Citation](#citation)
 
-- [Energy Saving (ES) rApp Documentation](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md)
-  - Energy Saving (ES) rApp
-- [RIC Test](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#ric-test)
-  - RIC Test & [I]SMO Integration (O1-Ves)
-  - RIC Test Netconf Test
-  - Cell on/off Scenario
-- [Compal gNB](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#compal-gnb)
-  - Compal gNB - O1 VES Test
-  - Compal gNB - O1 Netconf Test
-- [Installation Guide](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#installation-guide)
-  - [I release] SMO Deployment
-  - [I release] Install Non-RT RIC
-  - rApp Manager Introduction
-- [ML rApp](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#ml-rapp)
-  - ML rApp Overview
-  - rApp Manager User Guide
-- [Architecture](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#architecture)
-- [I/O Parameters Table](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/edit/master/README.md#io-parameters-table)
-  - ES rApp I/O Parameters
-    - Input Parameters
-    - Output Parameters
-  - ML rApp I/O Parameters
-    - Input Parameters
-    - Output Parameters
-  - Summary
+## 1. Introduction of the Energy Saving (ES) rApp template
+- This is the sample of the rApp for package the rApp as a image and give the sample access of input (PM metrics) and output (Netconf cell on/off control).
 
-## Energy Saving (ES) rApp
+## 2. Project Structure
+```
+nonrtric-rapp-energysaving/
+├─ README.md
+├─ CITATION.cff
+├─ ES rApp/
+│  ├─ Chart.yaml
+│  ├─ values.yaml
+│  ├─ templates/
+│  │  ├─ deployment.yaml
+│  │  ├─ service.yaml
+│  │  └─ configmap.yaml
+│  └─ src/
+│     ├─ main.py
+│     ├─ data.py
+│     ├─ nectconfclient.py
+│     └─ config.yaml
 
-- [ES rApp](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/tree/master/ES%20rApp)
+```
 
-## RIC Test
+## 3. Input and output
+### 3.1 Input: PM metrics access from influxDB
+- The example metrics structure of the PM metrics from influxDB
 
-- [RIC Test & [I]SMO Integration(O1-Ves)](https://hackmd.io/@Winnie27/r1uReJjxp)
-- [RIC Test Netconf test](https://hackmd.io/@Winnie27/r1BajOitT)
-- [Cell on/off Scenario](https://hackmd.io/@Winnie27/rkltXnp1T)
+| table | _measurement | _field | _value | _start | _stop | _time | CellID |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 0 | CellReports | Viavi.Cell.Name | S1/SMALL CELL - 30DBM/C1 | 2026-03-09T15:22:31.214Z | 2026-03-16T15:22:31.214Z | 2026-03-09T15:30:00.000Z | GnbCuCpFunction=1,NrCellCu=1 |
+| 0 | CellReports | RRC.ConnMean | 0 | 2026-03-09T15:20:36.053Z | 2026-03-16T15:20:36.053Z | 2026-03-09T15:30:00.000Z | GnbCuCpFunction=1,NrCellCu=1 |
+| 0 | CellReports | DRB.UEThpDl | 0 | 2026-03-09T15:25:26.436Z | 2026-03-16T15:25:26.436Z | 2026-03-09T15:30:00.000Z | GnbDuFunction=1,NrCellDu=1 |
 
-## Compal gNB
+### 3.2 Output: Netconf cell on/off control
+- The example xml format of the cell on/off control
+```
+<config xmlns:nc="urn:ietf:params:xml:ns:netconf:base:1.0">
+  <ManagedElement xmlns="urn:3gpp:sa5:_3gpp-common-managed-element">
+    <id>1193046</id>
+    <GNBCUCPFunction xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-gnbcucpfunction">
+        <id>1</id>
+        <NRCellCU xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-nrcellcu">
+            <id>1</id>
+            <CESManagementFunction xmlns="urn:3gpp:sa5:_3gpp-nr-nrm-cesmanagementfunction">
+                <id>1</id>
+                <attributes>
+                    <energySavingControl>toBeEnergySaving</energySavingControl>
+                </attributes>
+            </CESManagementFunction>
+        </NRCellCU>
+    </GNBCUCPFunction>
+  </ManagedElement>
+</config>
+``` 
+- Cell on control: `toBeNotEnergySaving`
+- Cell off control: `toBeEnergySaving`
+- *Causion: The `NRCellCU.id` and `CESManagementFunction.id` need to follow the netconf get_config from viavi.*
 
-- [Compal gNB - O1 VES test](https://hackmd.io/@Winnie27/rJZXQBxmC)
-- [Compal gNB - O1 Netconf test](https://hackmd.io/@Winnie27/rJu88bff0)
+## 4. Class Diagram
+```mermaid
+classDiagram
+  class ESrapp {
+    +__init__()
+    +entry()
+    +inference()
+    -threshold
+    -db
+    -netconf
+  }
+  class DATABASE {
+    +__init__()
+    +connect()
+    +get_cell_ID_map()
+    +read_data(cell_list)
+    +config()
+    +_parse_bool(value, default)
+    -cell_name_ID_map
+  }
+  class NETCONFCLIENT {
+    +__init__()
+    +connect()
+    +network_config_update_netconf(cell_list)
+    +edit_config(config_data, target, default_operation)
+    +config()
+  }
+  class InfluxDB
+  class NETCONFServer
 
-## Installation guide
+  ESrapp --> DATABASE : uses
+  ESrapp --> NETCONFCLIENT : uses
+  DATABASE ..> InfluxDB : queries
+  NETCONFCLIENT ..> NETCONFServer : edits config
+```
 
-- [[I release] SMO Deployment](https://hackmd.io/@H131413/ByOoZCmDa)
-- [[I release] Install Non-RT RIC](https://hackmd.io/@Winnie27/B1hE7bwBp)
-- [rApp Manager introduction](https://hackmd.io/@Winnie27/Bk6xb7EBT)
+## 5. Flowchart
+```mermaid
+flowchart TD
+  A[Start] --> B[Init ESrapp]
+  B --> C[Schedule inference every 1 min]
+  C --> D{Loop}
+  D --> E[Run inference]
+  E --> F[Get cell name/ID map]
+  F --> G[For each cell]
+  G --> H[Read KPI data]
+  H --> I{RRU.PrbUsedUl < threshold}
+  I -- Yes --> J[Append cell number]
+  J --> K[Send NETCONF config]
+  I -- No --> G
+  K --> G
+  G --> D
+```
 
-## ML rApp
+## 6. Message Sequence Chart (MSC)
+```mermaid
+sequenceDiagram
+  participant Scheduler
+  participant ESrapp
+  participant DATABASE
+  participant InfluxDB
+  participant NETCONFCLIENT
+  participant NETCONFServer
 
-- [ML rApp](https://github.com/bmw-ece-ntust/energy-saving-simple-usecase/tree/master/ML%20rApp)
-- [rApp Manager user guide](https://hackmd.io/@Winnie27/rJjXkxatp)
+  Scheduler->>ESrapp: inference()
+  ESrapp->>DATABASE: get_cell_ID_map()
+  DATABASE->>InfluxDB: query cell name/ID mapping
+  InfluxDB-->>DATABASE: result
+  loop per cell
+    ESrapp->>DATABASE: read_data([cell])
+    DATABASE->>InfluxDB: query KPI means
+    InfluxDB-->>DATABASE: KPI values
+    ESrapp->>NETCONFCLIENT: network_config_update_netconf(cells)
+    NETCONFCLIENT->>NETCONFServer: edit_config(xml)
+    NETCONFServer-->>NETCONFCLIENT: ok
+  end
+```
 
-## Architecture
+## 7. Helm Deployment Guide
+This guide packages the Helm chart into a `.tgz` and installs it.
 
-![image](https://github.com/user-attachments/assets/865db5d3-8217-42a7-af6f-0d34578d9ccc)
+### 6.1 Package the chart
+From the repository root:
+```bash
+helm package "ES rApp" -d ./dist
+```
+This will create a file like `dist/energy-saving-<version>.tgz` based on [ES rApp/Chart.yaml](ES%20rApp/Chart.yaml).
 
-## [I/O Parameters Table](https://hackmd.io/EOb2BReXTpeOQ6wXwflPFA?view#IO-Parameters-Table)
+### 6.2 Install the chart
+```bash
+helm install energy-saving ./dist/energy-saving-<version>.tgz \
+  --namespace test-rapp --create-namespace
+```
 
-### ES rApp I/O Parameters
+### 6.3 Configure values (optional)
+You can override values via `-f` or `--set`:
+```bash
+helm install energy-saving ./dist/energy-saving-<version>.tgz \
+  --namespace test-rapp --create-namespace \
+  -f my-values.yaml
+```
 
-**Desrciption:** These parameters are used to run the ES algorithm and output the target cell ID for shutting down the selected cell.
-
-- Input
-
-| Description                                                                                    | Target Entity | [3GPP TS 28.552 v17.6.0](https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3413) index | 3GPP         | [VIAVI](https://drive.google.com/file/d/1-1XJGd6pl0W2EnxBbraI_mbzAObB0C1n/view?usp=sharing) | ns-3       | OSC O1            |
-| ---------------------------------------------------------------------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------- | ---------- | ----------------- |
-| Average downlink throughput (in Gbp)                                                           | Cell, UE, QoS | 5.1.1.3.1                                                                                                                            | DRB_UEThpDl  |                                                                                             | throughput | DL_throughput     |
-| Average power consumed over the measurement period (in watts, W)                               | Cell          | 5.1.1.19.2.1                                                                                                                         | PEE.AvgPower |                                                                                             | (TBD.)     | pmPowerConsumed   |
-| Total usage (in percentage) of Physical Resource Blocks (PRBs) on the downlink for any purpose | Cell, mMIMO   | 5.1.1.2.1                                                                                                                            | RRU_PrbTotDl |                                                                                             | (TBD.)     | pmPdschPrbUsageDL |
-| Cell's or UE serving cell's "localCellId"                                                      | UE            |                                                                                                                                      | -            | Viavi_Cell_id                                                                               | ap_id      | gNBDUId           |
-
-- Output
-
-| KPI/Measurement Name | Target Entity | Description                               | Defined by (3GPP TS 28.552 v17.6.0 / VIAVI) |
-| -------------------- | ------------- | ----------------------------------------- | ------------------------------------------- |
-| Viavi_Cell_id        | UE            | Cell's or UE serving cell's "localCellId" | VIAVI proprietary                           |
-
-### ML rApp I/O Parameters
-
-**Desrciption:** The ML rApp utilizes input parameters to predict future cell throughput. Its outputs include both the target cell ID and the predicted throughput value, enabling informed decisions for network optimization.
-
-- Input
-  
-| KPI/Measurement Name | Target Entity | Description                                                                                    | Defined by (3GPP TS 28.552 v17.6.0 / VIAVI) |
-| -------------------- | ------------- | ---------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| DRB_UEThpDl          | Cell, UE, QoS | Average downlink throughput (in Gbp)                                                           | 3GPP TS 28.552 v17.6.0 5.1.1.3.1            |
-| Viavi_Cell_id        | UE            | Cell's or UE serving cell's "localCellId"                                                      | VIAVI proprietary                           |
-| PEE.AvgPower         | Cell          | Average power consumed over the measurement period (in watts, W)                               | 3GPP TS 28.552 v17.6.0 5.1.1.19.2.1         |
-| RRU_PrbTotDl         | Cell, mMIMO   | Total usage (in percentage) of Physical Resource Blocks (PRBs) on the downlink for any purpose | 3GPP TS 28.552 v17.6.0 5.1.1.2.1            |
-
-- Output
-
-| KPI/Measurement Name | Target Entity | Description                               | Defined by (3GPP TS 28.552 v17.6.0 / VIAVI) |
-| -------------------- | ------------- | ----------------------------------------- | ------------------------------------------- |
-| Viavi_Cell_id        | UE            | Cell's or UE serving cell's "localCellId" | VIAVI proprietary                           |
-| DRB_UEThpDl          | Cell, UE, QoS | Average downlink throughput (in Gbp)      | 3GPP TS 28.552 v17.6.0 5.1.1.3.1            |
-
-### Summary
-
-The ES rApp runs an energy-saving algorithm based on input parameters and outputs a cell ID to turn off cells with low load, achieving energy savings. In contrast, the ML rApp uses input parameters to predict the future cell throughput, with the output including the cell ID and the predicted throughput value.
+To upgrade after changes:
+```bash
+helm upgrade energy-saving ./dist/energy-saving-<version>.tgz \
+  --namespace test-rapp
+```
 
 ### Citation
 If you use this project in your research or wish to cite it, please use below citation:

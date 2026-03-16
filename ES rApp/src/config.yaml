@@ -1,0 +1,19 @@
+influxdb:
+  host: "192.168.8.6"
+  port: 30001
+  user: "admin"
+  password: "7jQCNdujbSKju7cL32IzOOwAx7rEjEGJ"
+  database: "RIC-Test"
+  measurement: "CellReports"
+  ssl: false
+  token: "farjJyo2ZskEMOyvqkY7QZid5sog06eH"
+  org: "influxdata"
+  bucket: "RIC-TEST-bucket"
+  address: "http://192.168.8.6:30001"
+netconf:
+  host: "192.168.8.28"
+  port: 830
+  user: "root"
+  password: "viavi"
+  hostkey_verify: false
+  timeout: 10

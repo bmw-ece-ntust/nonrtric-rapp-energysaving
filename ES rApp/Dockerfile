@@ -7,6 +7,6 @@ RUN pip install ncclient
 
 COPY src/ /app
 
-RUN pip install influxdb_client requests influxdb mdclogpy schedule
+RUN pip install influxdb_client requests influxdb mdclogpy schedule pyyaml
 
 CMD ["python", "main2.py"]
