@@ -9,7 +9,7 @@
 - [4. Class Diagram](#4-class-diagram)
 - [5. Flowchart](#5-flowchart)
 - [6. Message Sequence Chart (MSC)](#6-message-sequence-chart-msc)
-- [7. Helm Deployment Guide](#7-helm-deployment-guide)
+- [7. Installation Guide](#7-installation-guide)
 - [Citation](#citation)
 
 ## 1. Introduction of the Energy Saving (ES) rApp template
@@ -148,34 +148,39 @@ sequenceDiagram
   end
 ```
 
-## 7. Helm Deployment Guide
-This guide packages the Helm chart into a `.tgz` and installs it.
+## 7. Installation Guide
+This guide walks through building the container image, packaging the Helm chart, and installing it.
 
-### 6.1 Package the chart
+### 7.1 Build the container image with nerdctl
+Use `nerdctl` (containerd) to build the rApp image directly from the provided Dockerfile:
+```bash
+cd ES\ rApp
+sudo nerdctl -n k8s.io build -t blue89427999/es-rapp:0.0.1 .
+cd ..
+```
+Update `.Values.image.repository` and `.Values.image.tag` in [ES rApp/values.yaml](ES%20rApp/values.yaml) (or via `--set`) to point to the published image.
+
+### 7.2 Package the chart
 From the repository root:
 ```bash
 helm package "ES rApp" -d ./dist
 ```
-This will create a file like `dist/energy-saving-<version>.tgz` based on [ES rApp/Chart.yaml](ES%20rApp/Chart.yaml).
+This will create a file like `dist/energy-saving-rapp-0.0.1.tgz` based on [ES rApp/Chart.yaml](ES%20rApp/Chart.yaml).
 
-### 6.2 Install the chart
+### 7.3 Install the chart
 ```bash
-helm install energy-saving ./dist/energy-saving-<version>.tgz \
-  --namespace test-rapp --create-namespace
+helm install es-rapp ./dist/energy-saving-rapp-0.0.1.tgz --namespace rapp
 ```
 
-### 6.3 Configure values (optional)
+### 7.4 Configure values (optional)
 You can override values via `-f` or `--set`:
 ```bash
-helm install energy-saving ./dist/energy-saving-<version>.tgz \
-  --namespace test-rapp --create-namespace \
-  -f my-values.yaml
+helm install es-rapp ./dist/energy-saving-rapp-0.0.1.tgz --namespace rapp -f ES\ rApp/alues.yaml
 ```
 
 To upgrade after changes:
 ```bash
-helm upgrade energy-saving ./dist/energy-saving-<version>.tgz \
-  --namespace test-rapp
+helm upgrade es-rapp ./dist/energy-saving-rapp-0.0.1.tgz --namespace rapp
 ```
 
 ### Citation

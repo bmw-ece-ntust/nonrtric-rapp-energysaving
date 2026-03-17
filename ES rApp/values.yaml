@@ -8,7 +8,7 @@ image:
   repository: "blue89427999/es-rapp"
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.1.0"
+  tag: "0.0.1"
 
 imagePullSecrets: []
 nameOverride: "energysaving"
@@ -83,21 +83,15 @@ affinity: {}
 
 appConfig:
   influxdb:
-    host: "192.168.8.6"
-    port: 30001
-    user: "admin"
-    password: "7jQCNdujbSKju7cL32IzOOwAx7rEjEGJ"
-    database: "RIC-Test"
+    address: "http://192.168.8.69:30001"
     measurement: "CellReports"
-    ssl: false
-    token: "farjJyo2ZskEMOyvqkY7QZid5sog06eH"
-    org: "influxdata"
+    token: "6pZtuDdVmTLBprClKU05fq7ZrRpl8UCG"
+    org: "ESUseCase"
+    bucket: "O1PM"
   netconf:
     host: "192.168.8.28"
-    port: 830
+    port: 30830
     user: "root"
     password: "viavi"
     hostkey_verify: false
     timeout: 10
-    bucket: "RIC-TEST-bucket"
-    address: "http://192.168.8.6:30001"
