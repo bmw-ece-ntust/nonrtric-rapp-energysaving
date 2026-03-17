@@ -150,29 +150,33 @@ sequenceDiagram
 
 ## 7. Installation Guide
 This guide walks through building the container image, packaging the Helm chart, and installing it.
+### 7.1 Download the source code
+```
+git clone https://github.com/SoSonoFuriren/nonrtric-rapp-energysaving.git -b template
+```
 
-### 7.1 Build the container image with nerdctl
+### 7.2 Build the container image with nerdctl
 Use `nerdctl` (containerd) to build the rApp image directly from the provided Dockerfile:
 ```bash
-cd ES\ rApp
+cd nonrtric-rapp-energysaving/ES\ rApp
 sudo nerdctl -n k8s.io build -t blue89427999/es-rapp:0.0.1 .
 cd ..
 ```
 Update `.Values.image.repository` and `.Values.image.tag` in [ES rApp/values.yaml](ES%20rApp/values.yaml) (or via `--set`) to point to the published image.
 
-### 7.2 Package the chart
+### 7.3 Package the chart
 From the repository root:
 ```bash
 helm package "ES rApp" -d ./dist
 ```
 This will create a file like `dist/energy-saving-rapp-0.0.1.tgz` based on [ES rApp/Chart.yaml](ES%20rApp/Chart.yaml).
 
-### 7.3 Install the chart
+### 7.4 Install the chart
 ```bash
 helm install es-rapp ./dist/energy-saving-rapp-0.0.1.tgz --namespace rapp
 ```
 
-### 7.4 Configure values (optional)
+### 7.5 Configure values (optional)
 You can override values via `-f` or `--set`:
 ```bash
 helm install es-rapp ./dist/energy-saving-rapp-0.0.1.tgz --namespace rapp -f ES\ rApp/alues.yaml
