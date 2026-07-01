@@ -1,0 +1,5 @@
+
+# claude preference: personal/machine config + generated graph stay local
+.claude/
+graphify-out/
+.DS_Store
